@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <h1>Barotrauma Collision Maker mk1</h1>
+<meta charset="utf-8">
+
+    <style type="text/css">
+    .img-container {
+      position: relative;
+      text-align: center;
+      display: block;
+      top: 200px;
+    }
+   .rectangle {
+     position: absolute;
+     height: 50px;
+     width: 50px;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background-color: #505050;
+   }
+   .content_bottom {
+     position: fixed;
+     text-align: left;
+     top: 25%;
+   }
+    </style>
+
+    <script type='text/javascript'>
+    function func_upd()
+    {
+        var myImg = document.querySelector("#img")
+        var currHeight = myImg.clientHeight;
+        var input_width = document.getElementById('input_width').value
+        var input_height = document.getElementById('input_height').value
+        var input_rotate = document.getElementById('input_rotate').value
+        var input_offset_X = document.getElementById('input_offset_X').value
+        var input_offset_Y = document.getElementById('input_offset_Y').value
+        var input_url = document.getElementById('input_url').value
+        var calc_height = Number(input_height) + Number(currHeight)
+        document.getElementById('text_copy').value = 'bodywidth="' + input_width + '" bodyheight="' + calc_height + '" bodyoffset="' + input_offset_X + ',' + input_offset_Y + '" bodyrotation="' + input_rotate +'" '
+        document.getElementById('img').src=input_url
+        document.getElementById('rectangle').style.width = input_width + "px";
+        document.getElementById('rectangle').style.height =  calc_height + "px";
+        document.getElementById('rectangle').style.transform = 'translateX(-50%) translateY(-50%) rotate(' + input_rotate + 'deg)'
+        if (document.querySelector('#input_outline').checked) {
+          document.getElementById('rectangle').style.backgroundColor = '#50505050'
+          document.getElementById('rectangle').style.border = '3px solid #AA0000DD'
+        } else {
+          document.getElementById('rectangle').style.backgroundColor = '#505050'
+          document.getElementById('rectangle').style.border = '0'
+        }
+    }
+    function CopyThat()
+    {
+      var copyText = document.getElementById("text_copy");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+    </script>
+
+</head>
+<body>
+    <div class="img-container">
+      <img id="img" src="https://i.imgur.com/s6kZDaP.png" alt="John Doe"/>
+      <div id="rectangle" class="rectangle"></div>
+      <div class='content_bottom'>
+        <p><text>URL: </text><input id="input_url" value='https://i.imgur.com/s6kZDaP.png'></p>
+        <p><text>Width: </text><input id="input_width" value='75'/></p>
+        <p><text>Height: </text><input id="input_height" value='125'/></p>
+        <p><text>Rotate: </text><input id="input_rotate" value='75'/></p>
+        <p><text>Offset - X: </text><input id="input_offset_X" value='0'/><text> Offset - Y: </text><input id="input_offset_Y" value='0'/></p>
+        <p><button onclick="func_upd()">  Update 👁️</button></p>
+        <p><text>Outline: </text><input id="input_outline" type="checkbox"/></p>
+        <p><text>COPY TO XML 👇</text></p>
+        <p><input id="text_copy" readonly="readonly" size="70" value='bodywidth="XXX" bodyheight="XXX" bodyoffset="XXX,XXX" bodyrotation="XXX"'/></p>
+        <p><button onclick="CopyThat()">👉 Copy XML 👈</button></p>
+      </div>
+    </div>
+</body>
+</html>
